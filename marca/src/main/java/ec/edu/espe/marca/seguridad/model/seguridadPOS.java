@@ -18,7 +18,7 @@ public class seguridadPOS implements Serializable {
     private Integer codPos;
     @Column(name = "CLAVE", length = 128, nullable = false)
     private String clave;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ACTUALIZACION", nullable = false)
     private Date fechaActualizacion;
 

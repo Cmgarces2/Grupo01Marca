@@ -18,10 +18,10 @@ public class SeguridadProcesador implements Serializable {
     private Integer codProcesador;
     @Column(name = "CLAVE", length = 128, nullable = false)
     private String clave;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ACTUALIZACION", nullable = false)
     private Date fechaActualizacion;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ACTIVACION", nullable = false)
     private Date fechaActivacion;
     @Column(name = "ESTADO", length = 3, nullable = false)
