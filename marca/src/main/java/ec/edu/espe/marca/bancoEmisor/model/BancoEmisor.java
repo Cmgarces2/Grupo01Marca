@@ -1,4 +1,4 @@
-package ec.edu.espe.marca.model;
+package ec.edu.espe.marca.bancoEmisor.model;
 
 import java.io.Serializable;
 import jakarta.persistence.Column;

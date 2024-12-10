@@ -18,7 +18,7 @@ public class SeguridadGateway implements Serializable {
     private Integer codGateway;
     @Column(name = "CLAVE", length = 128, nullable = false)
     private String clave;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ACTUALIZACION", nullable = false)
     private Date fechaActualizacion;
 
