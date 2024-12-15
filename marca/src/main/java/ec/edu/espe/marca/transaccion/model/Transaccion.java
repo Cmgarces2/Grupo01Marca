@@ -4,11 +4,16 @@ import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import java.util.Date;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import ec.edu.espe.marca.tarjeta.model.Tarjeta;
+import ec.edu.espe.marca.liquidacion.model.Liquidacion;
+import ec.edu.espe.marca.seguridad.model.SeguridadProcesador;
 
 @Entity
 @Table(name = "TRANSACCION")
@@ -22,9 +27,9 @@ public class Transaccion implements Serializable {
     private Integer codLiquidacion;
     @Column(name = "COD_PROCESADOR", length = 10, nullable = false)
     private Integer codProcesador;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_TRANSACCION", nullable = false)
-    private Date fechaTransaccion;
+    private LocalDate fechaTransaccion;
     @Column(name = "MONTO", precision = 18, scale = 2, nullable = false)
     private BigDecimal monto;
     @Column(name = "ESTADO", length = 3, nullable = false)
@@ -46,7 +51,15 @@ public class Transaccion implements Serializable {
     @Column(name = "CANAL", length = 20, nullable = false)
     private String canal;
 
-    /* Falta Relacion */
+    @ManyToOne
+    @JoinColumn(name = "COD_TARJETA", referencedColumnName = "COD_TARJETA", insertable = false, updatable = false)
+    private Tarjeta tarjeta;
+    @ManyToOne
+    @JoinColumn(name = "COD_LIQUIDACION", referencedColumnName = "COD_LIQUIDACION", insertable = false, updatable = false)
+    private Liquidacion liquidacion;
+    @ManyToOne
+    @JoinColumn(name = "COD_PROCESADOR", referencedColumnName = "COD_PROCESADOR", insertable = false, updatable = false)
+    private SeguridadProcesador seguridadProcesador;
 
     public Transaccion() {
     }
@@ -87,11 +100,11 @@ public class Transaccion implements Serializable {
         this.codProcesador = codProcesador;
     }
 
-    public Date getFechaTransaccion() {
+    public LocalDate getFechaTransaccion() {
         return fechaTransaccion;
     }
 
-    public void setFechaTransaccion(Date fechaTransaccion) {
+    public void setFechaTransaccion(LocalDate fechaTransaccion) {
         this.fechaTransaccion = fechaTransaccion;
     }
 
@@ -175,6 +188,30 @@ public class Transaccion implements Serializable {
         this.canal = canal;
     }
 
+    public Tarjeta getTarjeta() {
+        return tarjeta;
+    }
+
+    public void setTarjeta(Tarjeta tarjeta) {
+        this.tarjeta = tarjeta;
+    }
+
+    public Liquidacion getLiquidacion() {
+        return liquidacion;
+    }
+
+    public void setLiquidacion(Liquidacion liquidacion) {
+        this.liquidacion = liquidacion;
+    }
+
+    public SeguridadProcesador getSeguridadProcesador() {
+        return seguridadProcesador;
+    }
+
+    public void setSeguridadProcesador(SeguridadProcesador seguridadProcesador) {
+        this.seguridadProcesador = seguridadProcesador;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -207,7 +244,8 @@ public class Transaccion implements Serializable {
                 + ", monto=" + monto + ", estado=" + estado + ", intentosValidacion=" + intentosValidacion
                 + ", codigoAutorizacion=" + codigoAutorizacion + ", tipoTransaccion=" + tipoTransaccion + ", moneda="
                 + moneda + ", paisOrigen=" + paisOrigen + ", codigoRespuesta=" + codigoRespuesta + ", comisionMarca="
-                + comisionMarca + ", canal=" + canal + "]";
+                + comisionMarca + ", canal=" + canal + ", tarjeta=" + tarjeta + ", liquidacion=" + liquidacion
+                + ", seguridadProcesador=" + seguridadProcesador + "]";
     }
 
 }

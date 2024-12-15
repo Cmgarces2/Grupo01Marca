@@ -4,14 +4,19 @@ import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import java.util.Date;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import ec.edu.espe.marca.bancos.model.BancoAdquiriente;
+import ec.edu.espe.marca.bancos.model.BancoEmisor;
 
 @Entity
-@Table(name = "LIQUIACION")
+@Table(name = "LIQUIDACION")
 public class Liquidacion implements Serializable {
     @Id
     @Column(name = "COD_LIQUIDACION", length = 10, nullable = false)
@@ -22,13 +27,18 @@ public class Liquidacion implements Serializable {
     private Integer codBancoEmisor;
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_LIQUIDACION", nullable = false)
-    private Date fechaLiquidacion;
+    private LocalDate fechaLiquidacion;
     @Column(name = "TOTAL_LIQUIDADO", precision = 18, scale = 2, nullable = false)
     private BigDecimal totalLiquidado;
     @Column(name = "TARIFAS", precision = 18, scale = 2, nullable = false)
     private BigDecimal tarifas;
 
-    /* Falta Relacion */
+    @ManyToOne
+    @JoinColumn(name = "COD_BANCO_ADQUIRENTE", referencedColumnName = "COD_BANCO_ADQUIRENTE", insertable = false, updatable = false)
+    private BancoAdquiriente bancoAdquiriente;
+    @ManyToOne
+    @JoinColumn(name = "COD_BANCO_EMISOR", referencedColumnName = "COD_BANCO_EMISOR", insertable = false, updatable = false)
+    private BancoEmisor bancoEmisor;
 
     public Liquidacion() {
     }
@@ -61,11 +71,11 @@ public class Liquidacion implements Serializable {
         this.codBancoEmisor = codBancoEmisor;
     }
 
-    public Date getFechaLiquidacion() {
+    public LocalDate getFechaLiquidacion() {
         return fechaLiquidacion;
     }
 
-    public void setFechaLiquidacion(Date fechaLiquidacion) {
+    public void setFechaLiquidacion(LocalDate fechaLiquidacion) {
         this.fechaLiquidacion = fechaLiquidacion;
     }
 
@@ -83,6 +93,22 @@ public class Liquidacion implements Serializable {
 
     public void setTarifas(BigDecimal tarifas) {
         this.tarifas = tarifas;
+    }
+
+    public BancoAdquiriente getBancoAdquiriente() {
+        return bancoAdquiriente;
+    }
+
+    public void setBancoAdquiriente(BancoAdquiriente bancoAdquiriente) {
+        this.bancoAdquiriente = bancoAdquiriente;
+    }
+
+    public BancoEmisor getBancoEmisor() {
+        return bancoEmisor;
+    }
+
+    public void setBancoEmisor(BancoEmisor bancoEmisor) {
+        this.bancoEmisor = bancoEmisor;
     }
 
     @Override
@@ -114,7 +140,8 @@ public class Liquidacion implements Serializable {
     public String toString() {
         return "Liquidacion [codLiquidacion=" + codLiquidacion + ", codBancoAdquirente=" + codBancoAdquirente
                 + ", codBancoEmisor=" + codBancoEmisor + ", fechaLiquidacion=" + fechaLiquidacion + ", totalLiquidado="
-                + totalLiquidado + ", tarifas=" + tarifas + "]";
+                + totalLiquidado + ", tarifas=" + tarifas + ", bancoAdquiriente=" + bancoAdquiriente + ", bancoEmisor="
+                + bancoEmisor + "]";
     }
 
 }

@@ -1,10 +1,14 @@
-package ec.edu.espe.marca.bancoEmisor.model;
+package ec.edu.espe.marca.bancos.model;
 
 import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
+import ec.edu.espe.marca.liquidacion.model.Liquidacion;
+import ec.edu.espe.marca.tarjeta.model.Tarjeta;
 
 @Entity
 @Table(name = "BANCO_EMISOR")
@@ -18,7 +22,10 @@ public class BancoEmisor implements Serializable {
     @Column(name = "PAIS", length = 3, nullable = false)
     private String pais;
 
-    /* Falta Relacion */
+    @OneToMany(mappedBy = "bancoEmisor")
+    private List<Liquidacion> liquidaciones;
+    @OneToMany(mappedBy = "bancoEmisor")
+    private List<Tarjeta> tarjetas;
 
     public BancoEmisor() {
     }
@@ -51,6 +58,22 @@ public class BancoEmisor implements Serializable {
         this.pais = pais;
     }
 
+    public List<Liquidacion> getLiquidaciones() {
+        return liquidaciones;
+    }
+
+    public void setLiquidaciones(List<Liquidacion> liquidaciones) {
+        this.liquidaciones = liquidaciones;
+    }
+
+    public List<Tarjeta> getTarjetas() {
+        return tarjetas;
+    }
+
+    public void setTarjetas(List<Tarjeta> tarjetas) {
+        this.tarjetas = tarjetas;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -78,7 +101,8 @@ public class BancoEmisor implements Serializable {
 
     @Override
     public String toString() {
-        return "BancoEmisor [codBancoEmisor=" + codBancoEmisor + ", nombre=" + nombre + ", pais=" + pais + "]";
+        return "BancoEmisor [codBancoEmisor=" + codBancoEmisor + ", nombre=" + nombre + ", pais=" + pais
+                + ", liquidaciones=" + liquidaciones + ", tarjetas=" + tarjetas + "]";
     }
 
 }

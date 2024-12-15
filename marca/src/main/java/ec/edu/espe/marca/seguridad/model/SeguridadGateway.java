@@ -1,13 +1,14 @@
 package ec.edu.espe.marca.seguridad.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import java.util.Date;
 
 @Entity
 @Table(name = "SEGURIDAD_GATEWAY")
@@ -20,7 +21,7 @@ public class SeguridadGateway implements Serializable {
     private String clave;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ACTUALIZACION", nullable = false)
-    private Date fechaActualizacion;
+    private LocalDate fechaActualizacion;
 
     public SeguridadGateway() {
     }
@@ -45,11 +46,11 @@ public class SeguridadGateway implements Serializable {
         this.clave = clave;
     }
 
-    public Date getFechaActualizacion() {
+    public LocalDate getFechaActualizacion() {
         return fechaActualizacion;
     }
 
-    public void setFechaActualizacion(Date fechaActualizacion) {
+    public void setFechaActualizacion(LocalDate fechaActualizacion) {
         this.fechaActualizacion = fechaActualizacion;
     }
 

@@ -1,17 +1,17 @@
 package ec.edu.espe.marca.seguridad.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import java.util.Date;
 
 @Entity
 @Table(name = "SEGURIDAD_POS")
-public class seguridadPOS implements Serializable {
+public class SeguridadPOS implements Serializable {
 
     @Id
     @Column(name = "COD_POS", length = 4, nullable = false)
@@ -20,12 +20,12 @@ public class seguridadPOS implements Serializable {
     private String clave;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ACTUALIZACION", nullable = false)
-    private Date fechaActualizacion;
+    private LocalDate fechaActualizacion;
 
-    public seguridadPOS() {
+    public SeguridadPOS() {
     }
 
-    public seguridadPOS(Integer codPos) {
+    public SeguridadPOS(Integer codPos) {
         this.codPos = codPos;
     }
 
@@ -45,11 +45,11 @@ public class seguridadPOS implements Serializable {
         this.clave = clave;
     }
 
-    public Date getFechaActualizacion() {
+    public LocalDate getFechaActualizacion() {
         return fechaActualizacion;
     }
 
-    public void setFechaActualizacion(Date fechaActualizacion) {
+    public void setFechaActualizacion(LocalDate fechaActualizacion) {
         this.fechaActualizacion = fechaActualizacion;
     }
 
@@ -69,7 +69,7 @@ public class seguridadPOS implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        seguridadPOS other = (seguridadPOS) obj;
+        SeguridadPOS other = (SeguridadPOS) obj;
         if (codPos == null) {
             if (other.codPos != null)
                 return false;
@@ -80,7 +80,7 @@ public class seguridadPOS implements Serializable {
 
     @Override
     public String toString() {
-        return "seguridadPOS [codPos=" + codPos + ", clave=" + clave + ", fechaActualizacion=" + fechaActualizacion
+        return "SeguridadPOS [codPos=" + codPos + ", clave=" + clave + ", fechaActualizacion=" + fechaActualizacion
                 + "]";
     }
 

@@ -4,10 +4,13 @@ import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
+import java.util.List;
+import ec.edu.espe.marca.transaccion.model.Transaccion;
 
 @Entity
 @Table(name = "SEGURIDAD_PROCESADOR")
@@ -26,6 +29,9 @@ public class SeguridadProcesador implements Serializable {
     private Date fechaActivacion;
     @Column(name = "ESTADO", length = 3, nullable = false)
     private String estado;
+
+    @OneToMany(mappedBy = "seguridadProcesador")
+    private List<Transaccion> transacciones;
 
     public SeguridadProcesador() {
     }
@@ -74,6 +80,14 @@ public class SeguridadProcesador implements Serializable {
         this.estado = estado;
     }
 
+    public List<Transaccion> getTransacciones() {
+        return transacciones;
+    }
+
+    public void setTransacciones(List<Transaccion> transacciones) {
+        this.transacciones = transacciones;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -102,7 +116,8 @@ public class SeguridadProcesador implements Serializable {
     @Override
     public String toString() {
         return "SeguridadProcesador [codProcesador=" + codProcesador + ", clave=" + clave + ", fechaActualizacion="
-                + fechaActualizacion + ", fechaActivacion=" + fechaActivacion + ", estado=" + estado + "]";
+                + fechaActualizacion + ", fechaActivacion=" + fechaActivacion + ", estado=" + estado
+                + ", transacciones=" + transacciones + "]";
     }
 
 }

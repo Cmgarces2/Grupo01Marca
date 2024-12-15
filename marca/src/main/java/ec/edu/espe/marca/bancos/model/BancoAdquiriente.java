@@ -1,10 +1,13 @@
-package ec.edu.espe.marca.bancoAdquiriente.model;
+package ec.edu.espe.marca.bancos.model;
 
 import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
+import ec.edu.espe.marca.liquidacion.model.Liquidacion;
 
 @Entity
 @Table(name = "BANCO_ADQUIRIENTE")
@@ -18,7 +21,8 @@ public class BancoAdquiriente implements Serializable {
     @Column(name = "PAIS", length = 3, nullable = false)
     private String pais;
 
-    /* Falta Relacion */
+    @OneToMany(mappedBy = "bancoAdquiriente")
+    private List<Liquidacion> liquidaciones;
 
     public BancoAdquiriente() {
     }
@@ -51,6 +55,14 @@ public class BancoAdquiriente implements Serializable {
         this.pais = pais;
     }
 
+    public List<Liquidacion> getLiquidaciones() {
+        return liquidaciones;
+    }
+
+    public void setLiquidaciones(List<Liquidacion> liquidaciones) {
+        this.liquidaciones = liquidaciones;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -79,7 +91,7 @@ public class BancoAdquiriente implements Serializable {
     @Override
     public String toString() {
         return "BancoAdquiriente [codBancoAdquiriente=" + codBancoAdquiriente + ", nombre=" + nombre + ", pais=" + pais
-                + "]";
+                + ", liquidaciones=" + liquidaciones + "]";
     }
 
 }

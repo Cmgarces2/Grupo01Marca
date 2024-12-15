@@ -1,17 +1,20 @@
 package ec.edu.espe.marca.cliente.model;
 
 import java.io.Serializable;
+import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import ec.edu.espe.marca.tarjeta.model.Tarjeta;
 
 @Entity
 @Table(name = "CLIENTE")
 public class Cliente implements Serializable {
 
     @Id
-    @Column(name = "COD_CLIENTE", length = 10, nullable = false)
+    @Column(name = "COD_CLIENTE", length = 13, nullable = false)
     private Integer codCliente;
     @Column(name = "NOMBRE", length = 50, nullable = false)
     private String nombre;
@@ -26,7 +29,8 @@ public class Cliente implements Serializable {
     @Column(name = "CORREO", length = 100, nullable = true)
     private String correo;
 
-    /* Falta Relacion */
+    @OneToMany(mappedBy = "cliente")
+    private List<Tarjeta> tarjetas;
 
     public Cliente() {
     }
@@ -91,6 +95,14 @@ public class Cliente implements Serializable {
         this.correo = correo;
     }
 
+    public List<Tarjeta> getTarjetas() {
+        return tarjetas;
+    }
+
+    public void setTarjetas(List<Tarjeta> tarjetas) {
+        this.tarjetas = tarjetas;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -120,7 +132,7 @@ public class Cliente implements Serializable {
     public String toString() {
         return "Cliente [codCliente=" + codCliente + ", nombre=" + nombre + ", apellido=" + apellido
                 + ", direccionLinea1=" + direccionLinea1 + ", direccionLinea2=" + direccionLinea2 + ", telefono="
-                + telefono + ", correo=" + correo + "]";
+                + telefono + ", correo=" + correo + ", tarjetas=" + tarjetas + "]";
     }
 
 }
