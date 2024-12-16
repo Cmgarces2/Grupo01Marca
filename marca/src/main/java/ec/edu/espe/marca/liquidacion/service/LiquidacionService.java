@@ -9,7 +9,7 @@ import ec.edu.espe.marca.liquidacion.repository.LiquidacionRepository;
 @Service
 public class LiquidacionService {
 
-    private final LiquidacionRepository liquidacionRepository;
+    private LiquidacionRepository liquidacionRepository;
 
     public LiquidacionService(LiquidacionRepository liquidacionRepository) {
         this.liquidacionRepository = liquidacionRepository;
