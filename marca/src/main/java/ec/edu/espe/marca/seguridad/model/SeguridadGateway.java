@@ -7,8 +7,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+//import jakarta.persistence.Temporal;
+//import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "SEGURIDAD_GATEWAY")
@@ -19,7 +19,7 @@ public class SeguridadGateway implements Serializable {
     private Integer codGateway;
     @Column(name = "CLAVE", length = 128, nullable = false)
     private String clave;
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ACTUALIZACION", nullable = false)
     private LocalDate fechaActualizacion;
 

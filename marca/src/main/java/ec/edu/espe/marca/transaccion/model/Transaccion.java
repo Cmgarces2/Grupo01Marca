@@ -7,8 +7,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import ec.edu.espe.marca.tarjeta.model.Tarjeta;
@@ -27,12 +25,11 @@ public class Transaccion implements Serializable {
     private Integer codLiquidacion;
     @Column(name = "COD_PROCESADOR", length = 10, nullable = false)
     private Integer codProcesador;
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_TRANSACCION", nullable = false)
     private LocalDate fechaTransaccion;
     @Column(name = "MONTO", precision = 18, scale = 2, nullable = false)
     private BigDecimal monto;
-    @Column(name = "ESTADO", length = 3, nullable = false)
+    @Column(name = "ESTADO_", length = 3, nullable = false)
     private String estado;
     @Column(name = "INTENTOS_VALIDACION", nullable = true)
     private Integer intentosValidacion;

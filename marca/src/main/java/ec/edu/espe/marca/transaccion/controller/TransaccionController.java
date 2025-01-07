@@ -1,63 +1,95 @@
 package ec.edu.espe.marca.transaccion.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ec.edu.espe.marca.transaccion.model.Transaccion;
 import ec.edu.espe.marca.transaccion.service.TransaccionService;
 
+// DTO para retornar solo los datos necesarios al cliente
+class TransaccionDTO {
+    private Integer codTransaccion;
+    private String fechaTransaccion;
+    private BigDecimal monto;
+    private String estado;
+    private String codigoAutorizacion;
+    private String paisOrigen;
+    private BigDecimal comisionMarca;
+
+    public TransaccionDTO(Integer codTransaccion, String fechaTransaccion, BigDecimal monto, String estado,
+                          String codigoAutorizacion, String paisOrigen, BigDecimal comisionMarca) {
+        this.codTransaccion = codTransaccion;
+        this.fechaTransaccion = fechaTransaccion;
+        this.monto = monto;
+        this.estado = estado;
+        this.codigoAutorizacion = codigoAutorizacion;
+        this.paisOrigen = paisOrigen;
+        this.comisionMarca = comisionMarca;
+    }
+
+    // Getters para serialización
+    public Integer getCodTransaccion() {
+        return codTransaccion;
+    }
+
+    public String getFechaTransaccion() {
+        return fechaTransaccion;
+    }
+
+    public BigDecimal getMonto() {
+        return monto;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public String getCodigoAutorizacion() {
+        return codigoAutorizacion;
+    }
+
+    public String getPaisOrigen() {
+        return paisOrigen;
+    }
+
+    public BigDecimal getComisionMarca() {
+        return comisionMarca;
+    }
+}
+
 @RestController
 @RequestMapping("/transaccion")
 public class TransaccionController {
 
-    private final TransaccionService transaccion;
+    private final TransaccionService transaccionService;
 
-    public TransaccionController(TransaccionService transaccion) {
-        this.transaccion = transaccion;
+    public TransaccionController(TransaccionService transaccionService) {
+        this.transaccionService = transaccionService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Transaccion>> obtenerTodasLasTransacciones() {
-        try {
-            return ResponseEntity.ok(this.transaccion.obtenerTodasTransacciones());
-        } catch (RuntimeException rte) {
-            return ResponseEntity.notFound().build();
-        }
-    }
+    public ResponseEntity<List<TransaccionDTO>> obtenerTodasLasTransacciones() {
+        List<Transaccion> transacciones = transaccionService.obtenerTodasTransacciones();
 
-    @GetMapping
-    public ResponseEntity<Transaccion> obtenerTransaccion(Integer codigo) {
-        try {
-            return ResponseEntity.ok(this.transaccion.ObtenerTransaccionporCodigo(codigo));
-        } catch (RuntimeException rte) {
-            return ResponseEntity.notFound().build();
-        }
-    }
+        // Convertir entidades a DTOs para filtrar los datos
+        List<TransaccionDTO> transaccionesDTO = transacciones.stream()
+                .map(transaccion -> new TransaccionDTO(
+                        transaccion.getCodTransaccion(),
+                        transaccion.getFechaTransaccion().toString(),
+                        transaccion.getMonto(),
+                        transaccion.getEstado(),
+                        transaccion.getCodigoAutorizacion(),
+                        transaccion.getPaisOrigen(),
+                        transaccion.getComisionMarca()
+                ))
+                .collect(Collectors.toList());
 
-    @PostMapping
-    public ResponseEntity<Transaccion> crearTransaccion(@RequestBody Transaccion transaccion) {
-        Transaccion nuevaTransaccion = this.transaccion.crearTransaccion(transaccion);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaTransaccion);
+        return ResponseEntity.ok(transaccionesDTO);
     }
-
-    @PutMapping("/{codigo}")
-    public ResponseEntity<Transaccion> actualizarTransaccion(@PathVariable Integer codigo,
-            @RequestBody Transaccion transaccion) {
-        try {
-            Transaccion transaccionActualizada = this.transaccion.actualizarTransaccion(codigo, transaccion);
-            return ResponseEntity.ok(transaccionActualizada);
-        } catch (RuntimeException rte) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
 }

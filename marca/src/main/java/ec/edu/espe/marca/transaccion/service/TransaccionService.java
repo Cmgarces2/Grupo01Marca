@@ -1,7 +1,7 @@
 package ec.edu.espe.marca.transaccion.service;
 
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import ec.edu.espe.marca.transaccion.model.Transaccion;
@@ -21,12 +21,18 @@ public class TransaccionService {
     }
 
     public Transaccion ObtenerTransaccionporCodigo(Integer codigo) {
-        Optional<Transaccion> transaccionOpt = this.transaccionRepository.findById(codigo);
+
+        return this.transaccionRepository.findById(codigo)
+        .orElseThrow(() -> new RuntimeException("No existe la transacción con el código: " + codigo));
+        /*
+         Optional<Transaccion> transaccionOpt = this.transaccionRepository.findById(codigo);
         if (!transaccionOpt.isPresent()) {
             return transaccionOpt.get();
         } else {
             throw new RuntimeException("No existe la transaccion con el codigo: " + codigo);
         }
+         
+         */
 
     }
 

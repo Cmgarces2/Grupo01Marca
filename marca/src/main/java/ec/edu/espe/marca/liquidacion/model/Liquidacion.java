@@ -7,8 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+//import jakarta.persistence.Temporal;
+//import jakarta.persistence.TemporalType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -25,7 +25,7 @@ public class Liquidacion implements Serializable {
     private Integer codBancoAdquirente;
     @Column(name = "COD_BANCO_EMISOR")
     private Integer codBancoEmisor;
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
     @Column(name = "FECHA_LIQUIDACION", nullable = false)
     private LocalDate fechaLiquidacion;
     @Column(name = "TOTAL_LIQUIDADO", precision = 18, scale = 2, nullable = false)

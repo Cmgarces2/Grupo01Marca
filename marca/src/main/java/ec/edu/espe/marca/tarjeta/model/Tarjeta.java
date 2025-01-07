@@ -9,8 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+//import jakarta.persistence.Temporal;
+//import jakarta.persistence.TemporalType;
 import ec.edu.espe.marca.bancos.model.BancoEmisor;
 import ec.edu.espe.marca.cliente.model.Cliente;
 
@@ -25,10 +25,10 @@ public class Tarjeta implements Serializable {
     @Column(name = "COD_CLIENTE", nullable = false)
     private Integer codCliente;
     @Column(name = "NUMERO_TARJETA", length = 16, nullable = false)
-    private Integer numeroTarjeta;
-    @Column(name = "CVV", length = 4, nullable = false)
+    private String numeroTarjeta;
+    @Column(name = "CVV", length = 4, nullable = true)
     private String cvv;
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
     @Column(name = "FECHA_EXPIRACION", nullable = false)
     private LocalDate fechaExpiracion;
     @Column(name = "TIPO_TARJETA", length = 3, nullable = false)
@@ -72,11 +72,11 @@ public class Tarjeta implements Serializable {
         this.codCliente = codCliente;
     }
 
-    public Integer getNumeroTarjeta() {
+    public String getNumeroTarjeta() {
         return numeroTarjeta;
     }
 
-    public void setNumeroTarjeta(Integer numeroTarjeta) {
+    public void setNumeroTarjeta(String numeroTarjeta) {
         this.numeroTarjeta = numeroTarjeta;
     }
 

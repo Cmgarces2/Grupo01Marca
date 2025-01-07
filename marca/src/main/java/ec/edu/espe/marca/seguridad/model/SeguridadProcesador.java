@@ -6,8 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+//import jakarta.persistence.Temporal;
+//import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
 import ec.edu.espe.marca.transaccion.model.Transaccion;
@@ -21,10 +21,10 @@ public class SeguridadProcesador implements Serializable {
     private Integer codProcesador;
     @Column(name = "CLAVE", length = 128, nullable = false)
     private String clave;
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ACTUALIZACION", nullable = false)
     private Date fechaActualizacion;
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ACTIVACION", nullable = false)
     private Date fechaActivacion;
     @Column(name = "ESTADO", length = 3, nullable = false)

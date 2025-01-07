@@ -6,26 +6,26 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+//import jakarta.persistence.Temporal;
+//import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "SEGURIDAD_POS")
-public class SeguridadPOS implements Serializable {
+public class seguridadPOS implements Serializable {
 
     @Id
     @Column(name = "COD_POS", length = 4, nullable = false)
     private Integer codPos;
     @Column(name = "CLAVE", length = 128, nullable = false)
     private String clave;
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ACTUALIZACION", nullable = false)
     private LocalDate fechaActualizacion;
 
-    public SeguridadPOS() {
+    public seguridadPOS() {
     }
 
-    public SeguridadPOS(Integer codPos) {
+    public seguridadPOS(Integer codPos) {
         this.codPos = codPos;
     }
 
@@ -69,7 +69,7 @@ public class SeguridadPOS implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        SeguridadPOS other = (SeguridadPOS) obj;
+        seguridadPOS other = (seguridadPOS) obj;
         if (codPos == null) {
             if (other.codPos != null)
                 return false;
